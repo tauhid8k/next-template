@@ -10,11 +10,19 @@ import {
 } from '@/components/ui/dropdown-menu'
 import { CircleUser, Menu } from 'lucide-react'
 import { ThemeToggler } from '@/components/theme-toggler'
+import { useContext } from 'react'
+import { SidebarContext } from '@/app/dashboard/layout'
 
 const Header = () => {
+  const { isSidebarOpen, setIsSidebarOpen } = useContext(SidebarContext)
+
   return (
     <header className="flex h-16 shrink-0 items-center justify-between gap-4 border-b px-4 md:px-6 bg-muted/40">
-      <Button onClick={() => {}} variant="outline" size="icon">
+      <Button
+        onClick={() => setIsSidebarOpen(!isSidebarOpen)}
+        variant="outline"
+        size="icon"
+      >
         <Menu className="icon" />
         <span className="sr-only">Toggle navigation menu</span>
       </Button>

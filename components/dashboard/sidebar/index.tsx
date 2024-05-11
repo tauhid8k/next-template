@@ -19,7 +19,7 @@ const Sidebar = () => {
         </Sheet>
       ) : (
         <aside
-          className={`hidden lg:flex flex-col w-64 h-full shrink-0 bg-muted/40 border-r transition-[margin] duration-300 ${
+          className={`hidden lg:flex flex-col w-64 h-full shrink-0 bg-white dark:bg-muted/40 border-r transition-[margin] duration-300 ${
             isSidebarOpen ? 'ml-0' : '-ml-64'
           }`}
         >

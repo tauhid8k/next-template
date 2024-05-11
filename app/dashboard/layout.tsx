@@ -55,7 +55,7 @@ const DashboardLayout = ({ children }: { children: React.ReactNode }) => {
         setIsSidebarMobile,
       }}
     >
-      <div className="fixed size-full flex">
+      <div className="fixed size-full flex bg-gray-50 dark:bg-background">
         <Sidebar />
         <div className="w-full overflow-hidden">
           <Header />

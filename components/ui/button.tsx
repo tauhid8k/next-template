@@ -43,9 +43,7 @@ export interface ButtonProps
 
 // Loading Icon
 const LoadingIcon = () => {
-  return (
-    <LoaderCircle className="size-5 animate-spin text-primary-foreground" />
-  )
+  return <LoaderCircle className="size-5 animate-spin text-white" />
 }
 
 const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(

@@ -3,7 +3,7 @@ import RegisterForm from '@/components/auth/register-form'
 
 const RegisterPage = () => {
   return (
-    <Card className="w-full max-w-sm bg-muted/40">
+    <Card className="w-full max-w-sm bg-white dark:bg-muted/40">
       <CardHeader>
         <CardTitle>Account Register</CardTitle>
       </CardHeader>

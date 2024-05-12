@@ -3,7 +3,7 @@ import LoginForm from '@/components/auth/login-form'
 
 const LoginPage = () => {
   return (
-    <Card className="w-full max-w-sm bg-muted/40">
+    <Card className="w-full max-w-sm bg-white dark:bg-muted/40">
       <CardHeader>
         <CardTitle>Account Login</CardTitle>
       </CardHeader>

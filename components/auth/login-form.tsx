@@ -1,10 +1,10 @@
 'use client'
 
 import { z } from 'zod'
-import { useForm } from 'react-hook-form'
+import { FieldPath, useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { loginValidator } from '@/validators/authValidator'
-import { useState, useTransition } from 'react'
+import { useTransition } from 'react'
 import { Button } from '@/components/ui/button'
 import Link from 'next/link'
 import {
@@ -17,12 +17,12 @@ import {
 } from '@/components/ui/form'
 import FormFieldSet from '@/components/ui/form-fieldset'
 import { Input } from '@/components/ui/input'
-import { Alert } from '@/components/ui/alert'
+import { toast } from 'react-hot-toast'
+import { handleErrors } from '@/lib/handleErrors'
 import { login } from '@/actions/authActions'
 
 const LoginForm = () => {
   const [isPending, startTransition] = useTransition()
-  const [errorAlert, setErrorAlert] = useState('')
 
   const form = useForm<z.infer<typeof loginValidator>>({
     resolver: zodResolver(loginValidator),
@@ -35,6 +35,20 @@ const LoginForm = () => {
   const onSubmit = async (values: z.infer<typeof loginValidator>) => {
     startTransition(async () => {
       const response = await login(values)
+      console.log(response)
+
+      const { formErrors, errorAlert, successAlert } = handleErrors(response)
+      if (formErrors.length) {
+        formErrors.map(({ field, message }) => {
+          form.setError(field as FieldPath<typeof values>, {
+            message,
+          })
+        })
+      } else if (errorAlert) {
+        toast.error(errorAlert)
+      } else if (successAlert) {
+        toast.success(successAlert)
+      }
     })
   }
 
@@ -68,7 +82,6 @@ const LoginForm = () => {
               </FormItem>
             )}
           />
-          <Alert variant="destructive" title={errorAlert} />
           <div className="flex flex-col md:flex-row justify-between gap-2 mb-4">
             <Link
               href="/auth/register"

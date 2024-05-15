@@ -1,10 +1,10 @@
 'use client'
 
 import { z } from 'zod'
-import { useForm } from 'react-hook-form'
+import { FieldPath, useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { registerValidator } from '@/validators/authValidator'
-import { useState, useTransition } from 'react'
+import { useTransition } from 'react'
 import { Button } from '@/components/ui/button'
 import Link from 'next/link'
 import {
@@ -17,12 +17,12 @@ import {
 } from '@/components/ui/form'
 import FormFieldSet from '@/components/ui/form-fieldset'
 import { Input } from '@/components/ui/input'
-import { Alert } from '@/components/ui/alert'
+import { toast } from 'react-hot-toast'
+import { handleErrors } from '@/lib/handleErrors'
 import { register } from '@/actions/authActions'
 
 const RegisterForm = () => {
   const [isPending, startTransition] = useTransition()
-  const [errorAlert, setErrorAlert] = useState('')
 
   const form = useForm<z.infer<typeof registerValidator>>({
     resolver: zodResolver(registerValidator),
@@ -37,6 +37,19 @@ const RegisterForm = () => {
   const onSubmit = (values: z.infer<typeof registerValidator>) => {
     startTransition(async () => {
       const response = await register(values)
+      console.log(response)
+      const { formErrors, errorAlert, successAlert } = handleErrors(response)
+      if (formErrors.length) {
+        formErrors.map(({ field, message }) => {
+          form.setError(field as FieldPath<typeof values>, {
+            message,
+          })
+        })
+      } else if (errorAlert) {
+        toast.error(errorAlert)
+      } else if (successAlert) {
+        toast.success(successAlert)
+      }
     })
   }
 
@@ -100,7 +113,6 @@ const RegisterForm = () => {
               </FormItem>
             )}
           />
-          <Alert variant="destructive" title={errorAlert} />
           <Button type="submit" className="w-full mb-4" isLoading={isPending}>
             {isPending ? 'Registering...' : 'Register'}
           </Button>

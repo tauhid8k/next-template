@@ -10,11 +10,21 @@ import {
 } from '@/components/ui/dropdown-menu'
 import { CircleUser, Menu } from 'lucide-react'
 import { ThemeToggler } from '@/components/theme-toggler'
-import { useContext } from 'react'
+import { useContext, useTransition } from 'react'
 import { SidebarContext } from '@/app/dashboard/layout'
+import { handleErrors } from '@/lib/handleErrors'
+import { toast } from 'react-hot-toast'
+import { useRouter } from 'next/navigation'
+import { logout } from '@/actions/authActions'
 
 const Header = () => {
   const { isSidebarOpen, setIsSidebarOpen } = useContext(SidebarContext)
+  const [isPending, startTransition] = useTransition()
+  const router = useRouter()
+
+  const handleLogout = () => {
+    startTransition(async () => {})
+  }
 
   return (
     <header className="flex h-16 shrink-0 items-center justify-between gap-4 border-b px-4 md:px-6 bg-white dark:bg-muted/40">
@@ -48,7 +58,7 @@ const Header = () => {
             <DropdownMenuItem>Support</DropdownMenuItem>
             <DropdownMenuSeparator />
             <DropdownMenuItem>
-              <form action={() => {}}>
+              <form action={handleLogout}>
                 <button type="submit">Logout</button>
               </form>
             </DropdownMenuItem>

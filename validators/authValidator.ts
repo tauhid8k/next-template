@@ -30,6 +30,13 @@ export const loginValidator = z.object({
   password: z.string().min(1, { message: 'Password is required' }),
 })
 
+// Email Verification Code Validator
+export const emailVerificationCodeValidator = z.object({
+  code: z
+    .string()
+    .min(6, { message: 'Code must contain at least 6 characters' }),
+})
+
 // Forgot Password Validator
 export const forgotPasswordValidator = z.object({
   email: z

@@ -31,7 +31,18 @@ export const login = async (values: z.infer<typeof loginValidator>) => {
     },
     body: JSON.stringify(values),
   })
+  return await response.json()
+}
 
+// Logout User
+export const logout = async () => {
+  const response = await fetch(`${baseUrl}/logout`, {
+    credentials: 'include',
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+  })
   return await response.json()
 }
 

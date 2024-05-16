@@ -18,11 +18,14 @@ import {
 import FormFieldSet from '@/components/ui/form-fieldset'
 import { Input } from '@/components/ui/input'
 import { toast } from 'react-hot-toast'
+import { useRouter } from 'next/navigation'
 import { handleErrors } from '@/lib/handleErrors'
 import { register } from '@/actions/authActions'
 
 const RegisterForm = () => {
   const [isPending, startTransition] = useTransition()
+
+  const router = useRouter()
 
   const form = useForm<z.infer<typeof registerValidator>>({
     resolver: zodResolver(registerValidator),
@@ -37,18 +40,18 @@ const RegisterForm = () => {
   const onSubmit = (values: z.infer<typeof registerValidator>) => {
     startTransition(async () => {
       const response = await register(values)
-      console.log(response)
-      const { formErrors, errorAlert, successAlert } = handleErrors(response)
+      const { formErrors, error, success } = handleErrors(response)
       if (formErrors.length) {
         formErrors.map(({ field, message }) => {
           form.setError(field as FieldPath<typeof values>, {
             message,
           })
         })
-      } else if (errorAlert) {
-        toast.error(errorAlert)
-      } else if (successAlert) {
-        toast.success(successAlert)
+      } else if (error) {
+        toast.error(error)
+      } else if (success) {
+        toast.success(success)
+        router.push('/auth/verify-email')
       }
     })
   }

@@ -7,6 +7,7 @@
     "Shadcn",
     "sonner",
     "tailwindcss",
+    "tanstack",
     "toploader"
   ]
 }

@@ -18,7 +18,6 @@ import {
 import FormFieldSet from '@/components/ui/form-fieldset'
 import { Input } from '@/components/ui/input'
 import { Alert } from '@/components/ui/alert'
-import { forgotPassword } from '@/actions/authActions'
 
 const ForgotPasswordForm = () => {
   const [isPending, startTransition] = useTransition()
@@ -33,7 +32,7 @@ const ForgotPasswordForm = () => {
 
   const onSubmit = (values: z.infer<typeof forgotPasswordValidator>) => {
     startTransition(async () => {
-      const response = await forgotPassword(values)
+      // TODO
     })
   }
 

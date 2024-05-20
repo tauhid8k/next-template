@@ -1,7 +1,8 @@
 import type { Metadata } from 'next'
 import { Inter } from 'next/font/google'
-import { ThemeProvider } from '@/components/theme-provider'
+import { ThemeProvider } from '@/components/providers/theme-provider'
 import { ToastContainer } from '@/components/ui/toaster'
+import TanstackQueryProvider from '@/components/providers/tanstack-query-provider'
 import NextTopLoader from 'nextjs-toploader'
 import './globals.css'
 
@@ -27,7 +28,7 @@ export default function RootLayout({
           disableTransitionOnChange
         >
           <NextTopLoader showSpinner={false} />
-          {children}
+          <TanstackQueryProvider>{children}</TanstackQueryProvider>
           <ToastContainer />
         </ThemeProvider>
       </body>

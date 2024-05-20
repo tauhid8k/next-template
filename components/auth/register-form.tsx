@@ -4,7 +4,6 @@ import { z } from 'zod'
 import { FieldPath, useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { registerValidator } from '@/validators/authValidator'
-import { useTransition } from 'react'
 import { Button } from '@/components/ui/button'
 import Link from 'next/link'
 import {
@@ -19,11 +18,16 @@ import FormFieldSet from '@/components/ui/form-fieldset'
 import { Input } from '@/components/ui/input'
 import { toast } from 'react-hot-toast'
 import { useRouter } from 'next/navigation'
-import { handleErrors } from '@/lib/handleErrors'
-import { register } from '@/actions/authActions'
+import { handleErrors, handleSuccess } from '@/lib/handleResponse'
+import { useMutation } from '@tanstack/react-query'
+import { getAxios } from '@/api'
 
 const RegisterForm = () => {
-  const [isPending, startTransition] = useTransition()
+  const { mutate: register, isPending } = useMutation({
+    mutationFn: (formData: z.infer<typeof registerValidator>) => {
+      return getAxios().post('/register', formData)
+    },
+  })
 
   const router = useRouter()
 
@@ -38,21 +42,26 @@ const RegisterForm = () => {
   })
 
   const onSubmit = (values: z.infer<typeof registerValidator>) => {
-    startTransition(async () => {
-      const response = await register(values)
-      const { formErrors, error, success } = handleErrors(response)
-      if (formErrors.length) {
-        formErrors.map(({ field, message }) => {
-          form.setError(field as FieldPath<typeof values>, {
-            message,
+    register(values, {
+      onError: (data) => {
+        const { formErrors, error } = handleErrors(data)
+        if (formErrors) {
+          formErrors.map(({ field, message }) => {
+            form.setError(field as FieldPath<typeof values>, {
+              message,
+            })
           })
-        })
-      } else if (error) {
-        toast.error(error)
-      } else if (success) {
-        toast.success(success)
-        router.push('/auth/verify-email')
-      }
+        } else if (error) {
+          toast.error(error)
+        }
+      },
+      onSuccess: (data) => {
+        const { message } = handleSuccess(data)
+        if (message) {
+          toast.success(message)
+        }
+        router.push('/dashboard')
+      },
     })
   }
 

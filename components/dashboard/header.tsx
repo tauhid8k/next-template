@@ -10,20 +10,41 @@ import {
 } from '@/components/ui/dropdown-menu'
 import { CircleUser, Menu } from 'lucide-react'
 import { ThemeToggler } from '@/components/theme-toggler'
-import { useContext, useTransition } from 'react'
+import { useContext } from 'react'
 import { SidebarContext } from '@/app/dashboard/layout'
-import { handleErrors } from '@/lib/handleErrors'
+import { handleErrors, handleSuccess } from '@/lib/handleResponse'
 import { toast } from 'react-hot-toast'
 import { useRouter } from 'next/navigation'
-import { logout } from '@/actions/authActions'
+import { useMutation } from '@tanstack/react-query'
+import { getAxios } from '@/api'
 
 const Header = () => {
   const { isSidebarOpen, setIsSidebarOpen } = useContext(SidebarContext)
-  const [isPending, startTransition] = useTransition()
+
   const router = useRouter()
 
+  const { mutate: logout } = useMutation({
+    mutationFn: () => {
+      return getAxios().post('/logout')
+    },
+  })
+
   const handleLogout = () => {
-    startTransition(async () => {})
+    logout(undefined, {
+      onError: (data) => {
+        const { error } = handleErrors(data)
+        if (error) {
+          toast.error(error)
+        }
+      },
+      onSuccess: (data) => {
+        const { message } = handleSuccess(data)
+        if (message) {
+          toast.success(message)
+          router.replace('/auth/login')
+        }
+      },
+    })
   }
 
   return (

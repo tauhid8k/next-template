@@ -55,6 +55,7 @@ const LoginForm = () => {
             })
           })
         } else if (formError) {
+          setFormMessageAlert('')
           setFormErrorAlert(formError)
         } else if (error) {
           toast.error(error)
@@ -63,6 +64,7 @@ const LoginForm = () => {
       onSuccess: (data) => {
         const { formMessage, message } = handleSuccess(data)
         if (formMessage) {
+          setFormErrorAlert('')
           setFormMessageAlert(formMessage)
         } else if (message) {
           toast.success(message)

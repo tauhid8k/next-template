@@ -24,7 +24,6 @@ import { useMutation } from '@tanstack/react-query'
 import { getAxios } from '@/api'
 
 const RegisterForm = () => {
-  const [formErrorAlert, setFormErrorAlert] = useState('')
   const [formMessageAlert, setFormMessageAlert] = useState('')
 
   const { mutate: register, isPending } = useMutation({
@@ -46,15 +45,13 @@ const RegisterForm = () => {
   const onSubmit = (values: z.infer<typeof registerValidator>) => {
     register(values, {
       onError: (data) => {
-        const { validationErrors, formError, error } = handleErrors(data)
+        const { validationErrors, error } = handleErrors(data)
         if (validationErrors) {
           validationErrors.map(({ field, message }) => {
             form.setError(field as FieldPath<typeof values>, {
               message,
             })
           })
-        } else if (formError) {
-          setFormErrorAlert(formError)
         } else if (error) {
           toast.error(error)
         }
@@ -132,7 +129,6 @@ const RegisterForm = () => {
               </FormItem>
             )}
           />
-          <Alert title={formErrorAlert} variant="destructive" />
           <Alert title={formMessageAlert} />
           <Button type="submit" className="w-full mb-4" isLoading={isPending}>
             {isPending ? 'Registering...' : 'Register'}

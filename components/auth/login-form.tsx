@@ -3,6 +3,7 @@
 import { z } from 'zod'
 import { FieldPath, useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
+import { useState } from 'react'
 import { loginValidator } from '@/validators/authValidator'
 import { Button } from '@/components/ui/button'
 import Link from 'next/link'
@@ -16,6 +17,7 @@ import {
 } from '@/components/ui/form'
 import FormFieldSet from '@/components/ui/form-fieldset'
 import { Input } from '@/components/ui/input'
+import { Alert } from '@/components/ui/alert'
 import { toast } from 'react-hot-toast'
 import { useRouter } from 'next/navigation'
 import { handleErrors, handleSuccess } from '@/lib/handleResponse'
@@ -23,6 +25,9 @@ import { useMutation } from '@tanstack/react-query'
 import { getAxios } from '@/api'
 
 const LoginForm = () => {
+  const [formErrorAlert, setFormErrorAlert] = useState('')
+  const [formMessageAlert, setFormMessageAlert] = useState('')
+
   const { mutate: login, isPending } = useMutation({
     mutationFn: (formData: z.infer<typeof loginValidator>) => {
       return getAxios().post('/login', formData)
@@ -42,20 +47,24 @@ const LoginForm = () => {
   const onSubmit = (values: z.infer<typeof loginValidator>) => {
     login(values, {
       onError: (data) => {
-        const { formErrors, error } = handleErrors(data)
-        if (formErrors.length) {
-          formErrors.map(({ field, message }) => {
+        const { validationErrors, formError, error } = handleErrors(data)
+        if (validationErrors.length) {
+          validationErrors.map(({ field, message }) => {
             form.setError(field as FieldPath<typeof values>, {
               message,
             })
           })
+        } else if (formError) {
+          setFormErrorAlert(formError)
         } else if (error) {
           toast.error(error)
         }
       },
       onSuccess: (data) => {
-        const { message } = handleSuccess(data)
-        if (message) {
+        const { formMessage, message } = handleSuccess(data)
+        if (formMessage) {
+          setFormMessageAlert(formMessage)
+        } else if (message) {
           toast.success(message)
           router.push('/dashboard')
         }
@@ -93,6 +102,8 @@ const LoginForm = () => {
               </FormItem>
             )}
           />
+          <Alert title={formErrorAlert} variant="destructive" />
+          <Alert title={formMessageAlert} />
           <div className="flex flex-col md:flex-row justify-between gap-2 mb-4">
             <Link
               href="/auth/register"

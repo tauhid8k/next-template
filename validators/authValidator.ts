@@ -28,6 +28,7 @@ export const loginValidator = z.object({
     .min(1, { message: 'Email is required' })
     .email({ message: 'Invalid email' }),
   password: z.string().min(1, { message: 'Password is required' }),
+  remember_me: z.boolean().optional(),
 })
 
 // Email Verification Code Validator

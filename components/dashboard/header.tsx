@@ -41,8 +41,9 @@ const Header = () => {
         const { message } = handleSuccess(data)
         if (message) {
           toast.success(message)
-          router.replace('/auth/login')
         }
+
+        router.replace('/auth/login')
       },
     })
   }

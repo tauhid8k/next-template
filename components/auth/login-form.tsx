@@ -25,8 +25,7 @@ import { useMutation } from '@tanstack/react-query'
 import { getAxios } from '@/api'
 
 const LoginForm = () => {
-  const [formErrorAlert, setFormErrorAlert] = useState('')
-  const [formMessageAlert, setFormMessageAlert] = useState('')
+  const [formAlert, setFormAlert] = useState('')
 
   const { mutate: login, isPending } = useMutation({
     mutationFn: (formData: z.infer<typeof loginValidator>) => {
@@ -41,6 +40,7 @@ const LoginForm = () => {
     defaultValues: {
       email: '',
       password: '',
+      remember_me: false,
     },
   })
 
@@ -55,21 +55,19 @@ const LoginForm = () => {
             })
           })
         } else if (formError) {
-          setFormMessageAlert('')
-          setFormErrorAlert(formError)
+          setFormAlert(formError)
         } else if (error) {
           toast.error(error)
         }
       },
       onSuccess: (data) => {
-        const { formMessage, message } = handleSuccess(data)
-        if (formMessage) {
-          setFormErrorAlert('')
-          setFormMessageAlert(formMessage)
-        } else if (message) {
+        const { message } = handleSuccess(data)
+        if (message) {
+          setFormAlert('')
           toast.success(message)
-          router.push('/dashboard')
         }
+
+        router.push('/dashboard')
       },
     })
   }
@@ -104,25 +102,34 @@ const LoginForm = () => {
               </FormItem>
             )}
           />
-          <Alert title={formErrorAlert} variant="destructive" />
-          <Alert title={formMessageAlert} />
-          <div className="flex flex-col md:flex-row justify-between gap-2 mb-4">
-            <Link
-              href="/auth/register"
-              className="block text-center text-sm text-muted-foreground hover:underline focus:underline focus:outline-none"
-            >
-              Do not have an account?
-            </Link>
+          <Alert title={formAlert} />
+          <div className="flex justify-between gap-2 mb-4">
+            <label className="flex items-center gap-2">
+              <input
+                type="checkbox"
+                {...form.register('remember_me')}
+                className="size-[18px] text-primary rounded focus:ring-0 focus:ring-offset-0 border-input bg-background"
+              />
+              <span className="text-sm text-muted-foreground whitespace-nowrap">
+                Remember me
+              </span>
+            </label>
             <Link
               href="/auth/forgot-password"
-              className="block text-center text-sm text-muted-foreground hover:underline focus:underline focus:outline-none"
+              className="block text-center text-sm text-muted-foreground hover:underline focus:underline focus:outline-none whitespace-nowrap"
             >
               Forgot password?
             </Link>
           </div>
-          <Button type="submit" className="w-full" isLoading={isPending}>
+          <Button type="submit" className="w-full mb-4" isLoading={isPending}>
             Login
           </Button>
+          <Link
+            href="/auth/register"
+            className="block text-center text-sm text-muted-foreground hover:underline focus:underline focus:outline-none"
+          >
+            Do not have an account?
+          </Link>
         </FormFieldSet>
       </form>
     </Form>

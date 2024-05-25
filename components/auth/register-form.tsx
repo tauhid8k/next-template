@@ -24,7 +24,7 @@ import { useMutation } from '@tanstack/react-query'
 import { getAxios } from '@/api'
 
 const RegisterForm = () => {
-  const [formMessageAlert, setFormMessageAlert] = useState('')
+  const [formAlert, setFormAlert] = useState('')
 
   const { mutate: register, isPending } = useMutation({
     mutationFn: (formData: z.infer<typeof registerValidator>) => {
@@ -45,25 +45,27 @@ const RegisterForm = () => {
   const onSubmit = (values: z.infer<typeof registerValidator>) => {
     register(values, {
       onError: (data) => {
-        const { validationErrors, error } = handleErrors(data)
+        const { validationErrors, formError, error } = handleErrors(data)
         if (validationErrors) {
           validationErrors.map(({ field, message }) => {
             form.setError(field as FieldPath<typeof values>, {
               message,
             })
           })
+        } else if (formError) {
+          setFormAlert(formError)
         } else if (error) {
           toast.error(error)
         }
       },
       onSuccess: (data) => {
-        const { message, formMessage } = handleSuccess(data)
-        if (message) {
-          toast.success(message)
+        const { formMessage, message } = handleSuccess(data)
+        if (formMessage) {
+          setFormAlert(formMessage)
         }
 
-        if (formMessage) {
-          setFormMessageAlert(formMessage)
+        if (message) {
+          toast.success(message)
         }
       },
     })
@@ -129,9 +131,9 @@ const RegisterForm = () => {
               </FormItem>
             )}
           />
-          <Alert title={formMessageAlert} />
+          <Alert title={formAlert} />
           <Button type="submit" className="w-full mb-4" isLoading={isPending}>
-            {isPending ? 'Registering...' : 'Register'}
+            Register
           </Button>
           <Link
             href="/auth/login"

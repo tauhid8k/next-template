@@ -67,6 +67,8 @@ const RegisterForm = () => {
         if (message) {
           toast.success(message)
         }
+
+        form.reset()
       },
     })
   }

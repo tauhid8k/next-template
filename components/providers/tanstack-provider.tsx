@@ -24,7 +24,7 @@ function getQueryClient() {
   }
 }
 
-export default function TanstackQueryProvider({
+export default function TanstackProvider({
   children,
 }: {
   children: React.ReactNode

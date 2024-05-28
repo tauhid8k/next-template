@@ -16,7 +16,7 @@ import { handleErrors, handleSuccess } from '@/lib/handleResponse'
 import { toast } from 'react-hot-toast'
 import { useRouter } from 'next/navigation'
 import { useMutation } from '@tanstack/react-query'
-import { getAxios } from '@/api'
+import { getAxios } from '@/lib/axios'
 
 const Header = () => {
   const { isSidebarOpen, setIsSidebarOpen } = useContext(SidebarContext)

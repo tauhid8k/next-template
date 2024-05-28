@@ -21,7 +21,7 @@ import { Alert } from '@/components/ui/alert'
 import { toast } from 'react-hot-toast'
 import { handleErrors, handleSuccess } from '@/lib/handleResponse'
 import { useMutation } from '@tanstack/react-query'
-import { getAxios } from '@/api'
+import { getAxios } from '@/lib/axios'
 
 const RegisterForm = () => {
   const [formAlert, setFormAlert] = useState('')

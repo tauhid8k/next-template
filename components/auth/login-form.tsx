@@ -105,12 +105,23 @@ const LoginForm = () => {
           />
           <Alert title={formAlert} />
           <div className="flex justify-between gap-2 mb-4">
-            <label className="flex items-center gap-2">
-              <Checkbox name="remember_me" />
-              <span className="text-sm text-muted-foreground whitespace-nowrap">
-                Remember me
-              </span>
-            </label>
+            <FormField
+              control={form.control}
+              name="remember_me"
+              render={({ field }) => (
+                <FormItem className="flex items-center gap-2 space-y-0">
+                  <FormControl>
+                    <Checkbox
+                      checked={field.value}
+                      onCheckedChange={field.onChange}
+                    />
+                  </FormControl>
+                  <FormLabel className="text-sm text-muted-foreground whitespace-nowrap">
+                    Remember me
+                  </FormLabel>
+                </FormItem>
+              )}
+            />
             <Link
               href="/auth/forgot-password"
               className="block text-center text-sm text-muted-foreground hover:underline focus:underline focus:outline-none whitespace-nowrap"

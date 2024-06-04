@@ -1,8 +1,8 @@
-import SidebarHeader from './sidebar-header'
-import SidebarMenu from './sidebar-menu'
-import { Sheet, SheetContent } from '@/components/ui/sheet'
-import { useContext } from 'react'
-import { SidebarContext } from '@/app/dashboard/layout'
+import SidebarHeader from "./sidebar-header"
+import SidebarMenu from "./sidebar-menu"
+import { Sheet, SheetContent } from "@/components/ui/sheet"
+import { useContext } from "react"
+import { SidebarContext } from "@/app/dashboard/layout"
 
 const Sidebar = () => {
   const { isSidebarMobile, isSidebarOpen, setIsSidebarOpen } =
@@ -20,7 +20,7 @@ const Sidebar = () => {
       ) : (
         <aside
           className={`hidden lg:flex flex-col w-64 h-full shrink-0 bg-white dark:bg-muted/40 border-r transition-[margin] duration-300 ${
-            isSidebarOpen ? 'ml-0' : '-ml-64'
+            isSidebarOpen ? "ml-0" : "-ml-64"
           }`}
         >
           <SidebarHeader />

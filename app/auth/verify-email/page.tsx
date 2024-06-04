@@ -4,9 +4,9 @@ import {
   CardDescription,
   CardHeader,
   CardTitle,
-} from '@/components/ui/card'
-import VerifyEmailCodeForm from '@/components/auth/verify-email-form'
-import ResendEmailButton from '@/components/auth/resend-email-button'
+} from "@/components/ui/card"
+import VerifyEmailCodeForm from "@/components/auth/verify-email-form"
+import ResendEmailButton from "@/components/auth/resend-email-button"
 
 const VerifyEmailPage = () => {
   return (

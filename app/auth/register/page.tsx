@@ -1,5 +1,5 @@
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
-import RegisterForm from '@/components/auth/register-form'
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
+import RegisterForm from "@/components/auth/register-form"
 
 const RegisterPage = () => {
   return (

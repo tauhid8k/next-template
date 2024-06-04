@@ -1,12 +1,12 @@
-'use client'
+"use client"
 
-import { z } from 'zod'
-import { FieldPath, useForm } from 'react-hook-form'
-import { zodResolver } from '@hookform/resolvers/zod'
-import { useState } from 'react'
-import { registerValidator } from '@/validators/authValidator'
-import { Button } from '@/components/ui/button'
-import Link from 'next/link'
+import { z } from "zod"
+import { FieldPath, useForm } from "react-hook-form"
+import { zodResolver } from "@hookform/resolvers/zod"
+import { useState } from "react"
+import { registerValidator } from "@/validators/authValidator"
+import { Button } from "@/components/ui/button"
+import Link from "next/link"
 import {
   Form,
   FormControl,
@@ -14,31 +14,31 @@ import {
   FormItem,
   FormLabel,
   FormMessage,
-} from '@/components/ui/form'
-import FormFieldSet from '@/components/ui/form-fieldset'
-import { Input } from '@/components/ui/input'
-import { Alert } from '@/components/ui/alert'
-import { toast } from 'react-hot-toast'
-import { handleErrors, handleSuccess } from '@/lib/handleResponse'
-import { useMutation } from '@tanstack/react-query'
-import { getAxios } from '@/lib/axios'
+} from "@/components/ui/form"
+import FormFieldSet from "@/components/ui/form-fieldset"
+import { Input } from "@/components/ui/input"
+import { Alert } from "@/components/ui/alert"
+import { toast } from "react-hot-toast"
+import { handleErrors, handleSuccess } from "@/lib/handleResponse"
+import { useMutation } from "@tanstack/react-query"
+import { getAxios } from "@/lib/axios"
 
 const RegisterForm = () => {
-  const [formAlert, setFormAlert] = useState('')
+  const [formAlert, setFormAlert] = useState("")
 
   const { mutate: register, isPending } = useMutation({
     mutationFn: (formData: z.infer<typeof registerValidator>) => {
-      return getAxios().post('/register', formData)
+      return getAxios().post("/register", formData)
     },
   })
 
   const form = useForm<z.infer<typeof registerValidator>>({
     resolver: zodResolver(registerValidator),
     defaultValues: {
-      name: '',
-      email: '',
-      password: '',
-      confirm_password: '',
+      name: "",
+      email: "",
+      password: "",
+      confirm_password: "",
     },
   })
 

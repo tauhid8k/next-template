@@ -1,4 +1,4 @@
-import Heading from '@/components/dashboard/heading'
+import Heading from "@/components/dashboard/heading"
 
 const UsersPage = () => {
   return <Heading title="Users" />

@@ -1,8 +1,8 @@
-'use client'
+"use client"
 
-import { Button } from '@/components/ui/button'
-import { ExclamationTriangleIcon } from '@radix-ui/react-icons'
-import { useEffect } from 'react'
+import { Button } from "@/components/ui/button"
+import { ExclamationTriangleIcon } from "@radix-ui/react-icons"
+import { useEffect } from "react"
 
 export default function Error({
   error,

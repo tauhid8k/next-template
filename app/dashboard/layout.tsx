@@ -1,8 +1,8 @@
-'use client'
+"use client"
 
-import Header from '@/components/dashboard/header'
-import Sidebar from '@/components/dashboard/sidebar'
-import React, { createContext, useLayoutEffect, useState } from 'react'
+import Header from "@/components/dashboard/header"
+import Sidebar from "@/components/dashboard/sidebar"
+import React, { createContext, useLayoutEffect, useState } from "react"
 
 // Context Types
 interface SidebarContextType {
@@ -40,10 +40,10 @@ const DashboardLayout = ({ children }: { children: React.ReactNode }) => {
     handleResize()
 
     // Event listener for window resize
-    window.addEventListener('resize', handleResize)
+    window.addEventListener("resize", handleResize)
 
     // Clean up the event listener on unmount
-    return () => window.removeEventListener('resize', handleResize)
+    return () => window.removeEventListener("resize", handleResize)
   }, [])
 
   return (

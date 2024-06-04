@@ -1,24 +1,24 @@
-'use client'
+"use client"
 
-import { z } from 'zod'
-import { useForm } from 'react-hook-form'
-import { zodResolver } from '@hookform/resolvers/zod'
-import { emailVerificationCodeValidator } from '@/validators/authValidator'
-import { useTransition } from 'react'
-import { Button } from '@/components/ui/button'
+import { z } from "zod"
+import { useForm } from "react-hook-form"
+import { zodResolver } from "@hookform/resolvers/zod"
+import { emailVerificationCodeValidator } from "@/validators/authValidator"
+import { useTransition } from "react"
+import { Button } from "@/components/ui/button"
 import {
   Form,
   FormControl,
   FormField,
   FormItem,
   FormMessage,
-} from '@/components/ui/form'
+} from "@/components/ui/form"
 import {
   InputOTP,
   InputOTPGroup,
   InputOTPSlot,
-} from '@/components/ui/input-otp'
-import FormFieldSet from '@/components/ui/form-fieldset'
+} from "@/components/ui/input-otp"
+import FormFieldSet from "@/components/ui/form-fieldset"
 
 const VerifyEmailCodeForm = () => {
   const [isPending, startTransition] = useTransition()
@@ -26,7 +26,7 @@ const VerifyEmailCodeForm = () => {
   const form = useForm<z.infer<typeof emailVerificationCodeValidator>>({
     resolver: zodResolver(emailVerificationCodeValidator),
     defaultValues: {
-      code: '',
+      code: "",
     },
   })
 
@@ -60,7 +60,7 @@ const VerifyEmailCodeForm = () => {
             )}
           />
           <Button type="submit" className="w-full mb-4" isLoading={isPending}>
-            {isPending ? 'Verifying...' : 'Verify Code'}
+            {isPending ? "Verifying..." : "Verify Code"}
           </Button>
         </FormFieldSet>
       </form>

@@ -1,14 +1,14 @@
-import { z } from 'zod'
+import { z } from "zod"
 
 // Register Validator
 export const registerValidator = z
   .object({
-    name: z.string().min(1, { message: 'Name is required' }),
+    name: z.string().min(1, { message: "Name is required" }),
     email: z
       .string()
-      .min(1, { message: 'Email is required' })
-      .email({ message: 'Invalid email' }),
-    password: z.string().min(1, { message: 'Password is required' }),
+      .min(1, { message: "Email is required" })
+      .email({ message: "Invalid email" }),
+    password: z.string().min(1, { message: "Password is required" }),
     confirm_password: z.string(),
   })
   .refine(
@@ -16,8 +16,8 @@ export const registerValidator = z
       return values.password === values.confirm_password
     },
     {
-      message: 'Passwords must match',
-      path: ['confirm_password'],
+      message: "Passwords must match",
+      path: ["confirm_password"],
     }
   )
 
@@ -25,9 +25,9 @@ export const registerValidator = z
 export const loginValidator = z.object({
   email: z
     .string()
-    .min(1, { message: 'Email is required' })
-    .email({ message: 'Invalid email' }),
-  password: z.string().min(1, { message: 'Password is required' }),
+    .min(1, { message: "Email is required" })
+    .email({ message: "Invalid email" }),
+  password: z.string().min(1, { message: "Password is required" }),
   remember_me: z.boolean().optional(),
 })
 
@@ -35,13 +35,13 @@ export const loginValidator = z.object({
 export const emailVerificationCodeValidator = z.object({
   code: z
     .string()
-    .min(6, { message: 'Code must contain at least 6 characters' }),
+    .min(6, { message: "Code must contain at least 6 characters" }),
 })
 
 // Forgot Password Validator
 export const forgotPasswordValidator = z.object({
   email: z
     .string()
-    .min(1, { message: 'Email is required' })
-    .email({ message: 'Invalid email' }),
+    .min(1, { message: "Email is required" })
+    .email({ message: "Invalid email" }),
 })

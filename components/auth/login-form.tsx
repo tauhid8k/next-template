@@ -1,12 +1,12 @@
-'use client'
+"use client"
 
-import { z } from 'zod'
-import { FieldPath, useForm } from 'react-hook-form'
-import { zodResolver } from '@hookform/resolvers/zod'
-import { useState } from 'react'
-import { loginValidator } from '@/validators/authValidator'
-import { Button } from '@/components/ui/button'
-import Link from 'next/link'
+import { z } from "zod"
+import { FieldPath, useForm } from "react-hook-form"
+import { zodResolver } from "@hookform/resolvers/zod"
+import { useState } from "react"
+import { loginValidator } from "@/validators/authValidator"
+import { Button } from "@/components/ui/button"
+import Link from "next/link"
 import {
   Form,
   FormControl,
@@ -14,22 +14,23 @@ import {
   FormItem,
   FormLabel,
   FormMessage,
-} from '@/components/ui/form'
-import FormFieldSet from '@/components/ui/form-fieldset'
-import { Input } from '@/components/ui/input'
-import { Alert } from '@/components/ui/alert'
-import { toast } from 'react-hot-toast'
-import { useRouter } from 'next/navigation'
-import { handleErrors, handleSuccess } from '@/lib/handleResponse'
-import { useMutation } from '@tanstack/react-query'
-import { getAxios } from '@/lib/axios'
+} from "@/components/ui/form"
+import FormFieldSet from "@/components/ui/form-fieldset"
+import { Input } from "@/components/ui/input"
+import { Alert } from "@/components/ui/alert"
+import { toast } from "react-hot-toast"
+import { useRouter } from "next/navigation"
+import { handleErrors, handleSuccess } from "@/lib/handleResponse"
+import { useMutation } from "@tanstack/react-query"
+import { getAxios } from "@/lib/axios"
+import { Checkbox } from "../ui/checkbox"
 
 const LoginForm = () => {
-  const [formAlert, setFormAlert] = useState('')
+  const [formAlert, setFormAlert] = useState("")
 
   const { mutate: login, isPending } = useMutation({
     mutationFn: (formData: z.infer<typeof loginValidator>) => {
-      return getAxios().post('/login', formData)
+      return getAxios().post("/login", formData)
     },
   })
 
@@ -38,8 +39,8 @@ const LoginForm = () => {
   const form = useForm<z.infer<typeof loginValidator>>({
     resolver: zodResolver(loginValidator),
     defaultValues: {
-      email: '',
-      password: '',
+      email: "",
+      password: "",
       remember_me: false,
     },
   })
@@ -63,11 +64,11 @@ const LoginForm = () => {
       onSuccess: (data) => {
         const { message } = handleSuccess(data)
         if (message) {
-          setFormAlert('')
+          setFormAlert("")
           toast.success(message)
         }
 
-        router.push('/dashboard')
+        router.push("/dashboard")
       },
     })
   }
@@ -105,11 +106,7 @@ const LoginForm = () => {
           <Alert title={formAlert} />
           <div className="flex justify-between gap-2 mb-4">
             <label className="flex items-center gap-2">
-              <input
-                type="checkbox"
-                {...form.register('remember_me')}
-                className="size-[18px] text-primary rounded focus:ring-0 focus:ring-offset-0 border-input bg-background"
-              />
+              <Checkbox name="remember_me" />
               <span className="text-sm text-muted-foreground whitespace-nowrap">
                 Remember me
               </span>

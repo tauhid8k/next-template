@@ -7,7 +7,7 @@ export const getAxios = () => {
   if (!instance) {
     instance = axios.create({
       withCredentials: true,
-      baseURL: `${baseUrl}/api/v1`,
+      baseURL: `${baseUrl}`,
     })
   }
 

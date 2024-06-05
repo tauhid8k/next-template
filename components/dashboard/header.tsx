@@ -1,5 +1,5 @@
-import { Button } from '@/components/ui/button'
-import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar'
+import { Button } from "@/components/ui/button"
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -7,16 +7,16 @@ import {
   DropdownMenuLabel,
   DropdownMenuSeparator,
   DropdownMenuTrigger,
-} from '@/components/ui/dropdown-menu'
-import { CircleUser, Menu } from 'lucide-react'
-import { ThemeToggler } from '@/components/theme-toggler'
-import { useContext } from 'react'
-import { SidebarContext } from '@/app/dashboard/layout'
-import { handleErrors, handleSuccess } from '@/lib/handleResponse'
-import { toast } from 'react-hot-toast'
-import { useRouter } from 'next/navigation'
-import { useMutation } from '@tanstack/react-query'
-import { getAxios } from '@/lib/axios'
+} from "@/components/ui/dropdown-menu"
+import { CircleUser, Menu } from "lucide-react"
+import { ThemeToggler } from "@/components/theme-toggler"
+import { useContext } from "react"
+import { SidebarContext } from "@/app/dashboard/layout"
+import { handleErrors, handleSuccess } from "@/lib/handleResponse"
+import { toast } from "react-hot-toast"
+import { useRouter } from "next/navigation"
+import { useMutation } from "@tanstack/react-query"
+import { getAxios } from "@/lib/axios"
 
 const Header = () => {
   const { isSidebarOpen, setIsSidebarOpen } = useContext(SidebarContext)
@@ -25,7 +25,7 @@ const Header = () => {
 
   const { mutate: logout } = useMutation({
     mutationFn: () => {
-      return getAxios().post('/logout')
+      return getAxios().post("/logout")
     },
   })
 
@@ -43,7 +43,7 @@ const Header = () => {
           toast.success(message)
         }
 
-        router.replace('/auth/login')
+        router.replace("/")
       },
     })
   }

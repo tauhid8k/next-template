@@ -5,7 +5,7 @@ import { baseUrl } from "./api"
 
 export const getAuth = async () => {
   try {
-    const response = await fetch(`${baseUrl}/api/v1/auth`, {
+    const response = await fetch(`${baseUrl}/auth`, {
       headers: {
         Cookie: cookies().toString(),
       },

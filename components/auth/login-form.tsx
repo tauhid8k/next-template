@@ -17,13 +17,13 @@ import {
 } from "@/components/ui/form"
 import FormFieldSet from "@/components/ui/form-fieldset"
 import { Input } from "@/components/ui/input"
+import { Checkbox } from "@/components/ui/checkbox"
 import { Alert } from "@/components/ui/alert"
 import { toast } from "react-hot-toast"
 import { useRouter } from "next/navigation"
 import { handleErrors, handleSuccess } from "@/lib/handleResponse"
 import { useMutation } from "@tanstack/react-query"
 import { getAxios } from "@/lib/axios"
-import { Checkbox } from "../ui/checkbox"
 
 const LoginForm = () => {
   const [formAlert, setFormAlert] = useState("")

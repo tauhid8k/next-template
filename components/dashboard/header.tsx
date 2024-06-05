@@ -11,7 +11,7 @@ import {
 import { CircleUser, Menu } from "lucide-react"
 import { ThemeToggler } from "@/components/theme-toggler"
 import { useContext } from "react"
-import { SidebarContext } from "@/app/dashboard/layout"
+import { SidebarContext } from "@/app/(protected)/dashboard/layout"
 import { handleErrors, handleSuccess } from "@/lib/handleResponse"
 import { toast } from "react-hot-toast"
 import { useRouter } from "next/navigation"

@@ -8,12 +8,7 @@ export const publicRoutes: string[] = ["/"]
  * An array of routes that are used for authentication.
  * These routes will redirect logged in users to /dashboard
  */
-export const authRoutes: string[] = [
-  "/auth",
-  "/auth/register",
-  "/auth/login",
-  "/auth/forgot-password",
-]
+export const authRoutes: string[] = ["/register", "/login", "/forgot-password"]
 
 /**
  * The default redirect path after logging in

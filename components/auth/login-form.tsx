@@ -123,7 +123,7 @@ const LoginForm = () => {
               )}
             />
             <Link
-              href="/auth/forgot-password"
+              href="/forgot-password"
               className="block text-center text-sm text-muted-foreground hover:underline focus:underline focus:outline-none whitespace-nowrap"
             >
               Forgot password?
@@ -133,7 +133,7 @@ const LoginForm = () => {
             Login
           </Button>
           <Link
-            href="/auth/register"
+            href="/register"
             className="block text-center text-sm text-muted-foreground hover:underline focus:underline focus:outline-none"
           >
             Do not have an account?

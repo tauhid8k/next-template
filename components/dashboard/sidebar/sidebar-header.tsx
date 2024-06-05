@@ -1,8 +1,8 @@
-import Link from 'next/link'
-import { Button } from '@/components/ui/button'
-import { X } from 'lucide-react'
-import { useContext } from 'react'
-import { SidebarContext } from '@/app/dashboard/layout'
+import Link from "next/link"
+import { Button } from "@/components/ui/button"
+import { X } from "lucide-react"
+import { useContext } from "react"
+import { SidebarContext } from "@/app/(protected)/dashboard/layout"
 
 const SidebarHeader = () => {
   const { setIsSidebarOpen } = useContext(SidebarContext)

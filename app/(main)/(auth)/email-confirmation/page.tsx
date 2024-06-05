@@ -5,10 +5,10 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card"
-import VerifyEmailCodeForm from "@/components/auth/verify-email-form"
+import EmailConfirmationForm from "@/components/auth/email-confirmation-form"
 import ResendEmailButton from "@/components/auth/resend-email-button"
 
-const VerifyEmailPage = () => {
+const EmailConfirmationPage = () => {
   return (
     <Card className="w-full max-w-sm bg-white dark:bg-muted/40">
       <CardHeader className="text-center">
@@ -19,11 +19,11 @@ const VerifyEmailPage = () => {
         </CardDescription>
       </CardHeader>
       <CardContent>
-        <VerifyEmailCodeForm />
+        <EmailConfirmationForm />
         <ResendEmailButton />
       </CardContent>
     </Card>
   )
 }
 
-export default VerifyEmailPage
+export default EmailConfirmationPage

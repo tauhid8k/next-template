@@ -1,12 +1,12 @@
-'use client'
+"use client"
 
-import { z } from 'zod'
-import { useForm } from 'react-hook-form'
-import { zodResolver } from '@hookform/resolvers/zod'
-import { forgotPasswordValidator } from '@/validators/authValidator'
-import { useState, useTransition } from 'react'
-import { Button } from '@/components/ui/button'
-import Link from 'next/link'
+import { z } from "zod"
+import { useForm } from "react-hook-form"
+import { zodResolver } from "@hookform/resolvers/zod"
+import { forgotPasswordValidator } from "@/validators/authValidator"
+import { useState, useTransition } from "react"
+import { Button } from "@/components/ui/button"
+import Link from "next/link"
 import {
   Form,
   FormControl,
@@ -14,19 +14,19 @@ import {
   FormItem,
   FormLabel,
   FormMessage,
-} from '@/components/ui/form'
-import FormFieldSet from '@/components/ui/form-fieldset'
-import { Input } from '@/components/ui/input'
-import { Alert } from '@/components/ui/alert'
+} from "@/components/ui/form"
+import FormFieldSet from "@/components/ui/form-fieldset"
+import { Input } from "@/components/ui/input"
+import { Alert } from "@/components/ui/alert"
 
 const ForgotPasswordForm = () => {
   const [isPending, startTransition] = useTransition()
-  const [errorAlert, setErrorAlert] = useState('')
+  const [errorAlert, setErrorAlert] = useState("")
 
   const form = useForm<z.infer<typeof forgotPasswordValidator>>({
     resolver: zodResolver(forgotPasswordValidator),
     defaultValues: {
-      email: '',
+      email: "",
     },
   })
 
@@ -55,10 +55,10 @@ const ForgotPasswordForm = () => {
           />
           <Alert variant="destructive" title={errorAlert} />
           <Button type="submit" className="w-full mb-4" isLoading={isPending}>
-            {isPending ? 'Sending...' : 'Send password reset link'}
+            {isPending ? "Sending..." : "Send password reset link"}
           </Button>
           <Link
-            href="/auth/login"
+            href="/login"
             className="block text-center text-sm text-muted-foreground hover:underline focus:underline focus:outline-none"
           >
             Go back to login?

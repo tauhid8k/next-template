@@ -3,7 +3,7 @@
 import { z } from "zod"
 import { useForm } from "react-hook-form"
 import { zodResolver } from "@hookform/resolvers/zod"
-import { emailVerificationCodeValidator } from "@/validators/authValidator"
+import { emailConfirmationValidator } from "@/validators/authValidator"
 import { useTransition } from "react"
 import { Button } from "@/components/ui/button"
 import {
@@ -20,17 +20,17 @@ import {
 } from "@/components/ui/input-otp"
 import FormFieldSet from "@/components/ui/form-fieldset"
 
-const VerifyEmailCodeForm = () => {
+const EmailConfirmationForm = () => {
   const [isPending, startTransition] = useTransition()
 
-  const form = useForm<z.infer<typeof emailVerificationCodeValidator>>({
-    resolver: zodResolver(emailVerificationCodeValidator),
+  const form = useForm<z.infer<typeof emailConfirmationValidator>>({
+    resolver: zodResolver(emailConfirmationValidator),
     defaultValues: {
       code: "",
     },
   })
 
-  const onSubmit = (values: z.infer<typeof emailVerificationCodeValidator>) => {
+  const onSubmit = (values: z.infer<typeof emailConfirmationValidator>) => {
     startTransition(async () => {})
   }
 
@@ -68,4 +68,4 @@ const VerifyEmailCodeForm = () => {
   )
 }
 
-export default VerifyEmailCodeForm
+export default EmailConfirmationForm

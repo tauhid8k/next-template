@@ -22,9 +22,11 @@ import { toast } from "react-hot-toast"
 import { handleErrors, handleSuccess } from "@/lib/handleResponse"
 import { useMutation } from "@tanstack/react-query"
 import { getAxios } from "@/lib/axios"
+import { useRouter } from "next/navigation"
 
 const RegisterForm = () => {
   const [formAlert, setFormAlert] = useState("")
+  const router = useRouter()
 
   const { mutate: register, isPending } = useMutation({
     mutationFn: (formData: z.infer<typeof registerValidator>) => {
@@ -59,16 +61,14 @@ const RegisterForm = () => {
         }
       },
       onSuccess: (data) => {
-        const { formMessage, message } = handleSuccess(data)
-        if (formMessage) {
-          setFormAlert(formMessage)
-        }
+        const { message } = handleSuccess(data)
 
         if (message) {
           toast.success(message)
         }
 
         form.reset()
+        router.push("/email-confirmation")
       },
     })
   }
@@ -138,7 +138,7 @@ const RegisterForm = () => {
             Register
           </Button>
           <Link
-            href="/auth/login"
+            href="/login"
             className="block text-center text-sm text-muted-foreground hover:underline focus:underline focus:outline-none"
           >
             Already have an account?

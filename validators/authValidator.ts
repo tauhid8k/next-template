@@ -32,7 +32,7 @@ export const loginValidator = z.object({
 })
 
 // Email Verification Code Validator
-export const emailVerificationCodeValidator = z.object({
+export const emailConfirmationValidator = z.object({
   code: z
     .string()
     .min(6, { message: "Code must contain at least 6 characters" }),

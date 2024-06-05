@@ -1,4 +1,4 @@
-import { DEFAULT_LOGIN_REDIRECT, authRoutes, publicRoutes } from "@/auth.routes"
+import { DEFAULT_LOGIN_REDIRECT, authRoutes } from "@/auth.routes"
 import { NextRequest, NextResponse } from "next/server"
 import { getAuth } from "@/lib/auth"
 
@@ -9,13 +9,16 @@ export default async function middleware(req: NextRequest) {
   const isAuthRoute = authRoutes.includes(nextUrl.pathname)
 
   if (isDashboardRoute) {
-    const { isAuthenticated } = await getAuth()
+    const { isAuthenticated, user } = await getAuth()
 
     console.log("Dashboard Route", isAuthenticated)
 
-    if (!isAuthenticated) {
-      return NextResponse.redirect(new URL("/auth/login", nextUrl))
+    if (isAuthenticated && !user.emailVerifiedAt) {
+      return NextResponse.redirect(new URL("/email-confirmation", nextUrl))
+    } else if (!isAuthenticated) {
+      return NextResponse.redirect(new URL("/login", nextUrl))
     }
+
     return NextResponse.next()
   }
 
@@ -27,6 +30,7 @@ export default async function middleware(req: NextRequest) {
     if (isAuthenticated) {
       return NextResponse.redirect(new URL(DEFAULT_LOGIN_REDIRECT, nextUrl))
     }
+
     return NextResponse.next()
   }
 

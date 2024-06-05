@@ -1,12 +1,21 @@
 import SidebarHeader from "./sidebar-header"
 import SidebarMenu from "./sidebar-menu"
 import { Sheet, SheetContent } from "@/components/ui/sheet"
-import { useContext } from "react"
-import { SidebarContext } from "@/app/dashboard/layout"
+import { useContext, useEffect } from "react"
+import { SidebarContext } from "@/app/(protected)/dashboard/layout"
+import { usePathname } from "next/navigation"
 
 const Sidebar = () => {
   const { isSidebarMobile, isSidebarOpen, setIsSidebarOpen } =
     useContext(SidebarContext)
+
+  const pathName = usePathname()
+
+  useEffect(() => {
+    if (isSidebarMobile) {
+      setIsSidebarOpen(false)
+    }
+  }, [pathName, isSidebarMobile, setIsSidebarOpen])
 
   return (
     <>

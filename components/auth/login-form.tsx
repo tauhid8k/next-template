@@ -68,7 +68,7 @@ const LoginForm = () => {
           toast.success(message)
         }
 
-        router.push("/dashboard")
+        router.push("/")
       },
     })
   }
@@ -116,7 +116,7 @@ const LoginForm = () => {
                       onCheckedChange={field.onChange}
                     />
                   </FormControl>
-                  <FormLabel className="text-sm text-muted-foreground whitespace-nowrap">
+                  <FormLabel className="text-sm font-normal text-muted-foreground whitespace-nowrap">
                     Remember me
                   </FormLabel>
                 </FormItem>

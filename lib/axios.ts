@@ -1,8 +1,6 @@
-import axios, { AxiosInstance } from 'axios'
-import { redirect } from 'next/navigation'
-
-// Base API URL
-export const baseUrl = process.env.NEXT_PUBLIC_API_URL
+import axios, { AxiosInstance } from "axios"
+import { redirect } from "next/navigation"
+import { baseUrl } from "./api"
 
 let instance: AxiosInstance
 export const getAxios = () => {
@@ -21,7 +19,7 @@ export const getAxios = () => {
     },
     (error) => {
       if (error.response.status === 401) {
-        redirect('/auth/login')
+        redirect("/auth/login")
       }
 
       return Promise.reject(error)
